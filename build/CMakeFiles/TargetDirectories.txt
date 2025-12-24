@@ -1,3 +1,0 @@
-C:/Users/bogda/OneDrive/Desktop/Tetris/build/CMakeFiles/Tetris.dir
-C:/Users/bogda/OneDrive/Desktop/Tetris/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/bogda/OneDrive/Desktop/Tetris/build/CMakeFiles/ZERO_CHECK.dir
