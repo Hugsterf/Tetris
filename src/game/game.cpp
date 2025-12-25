@@ -35,9 +35,6 @@ void Game::processEvents()
 
 void Game::update()
 {
-    /*size_t sizeY = positionData::getSizeY();
-    size_t sizeX = positionData::getSizeX();*/
-
     for (size_t row = 0; row < Config::GRID_HEIGHT; row++)
     {
         for (size_t col = 0; col < Config::GRID_WIDTH; col++)
@@ -51,13 +48,15 @@ void Game::update()
         }
     }
 
-    //const std::vector<std::vector<int>> I = {
-    //    {0, 0, 0, 0},
-    //    {0, 0, 0, 0},
-    //    {0, 0, 0, 0},
-    //    {0, 0, 0, 0}
-    //};
-    //addShape(Forms::createShape(I));
+    const std::vector<std::vector<int>> I = {
+        {0, 6, 0, 0},
+        {0, 6, 0, 0},
+        {0, 6, 0, 0},
+        {0, 6, 0, 0}
+    };
+    addShape(Forms::createShape(I));
+
+    addShape(Forms::border());
 }
 
 void Game::render()

@@ -27,7 +27,7 @@ std::vector<sf::RectangleShape> Forms::createShape(const std::vector<std::vector
             if (shapeTwoD[i][j] != 0)
             {
                 sf::RectangleShape shape(sf::Vector2f(Config::CELL_SIZE, Config::CELL_SIZE));
-                int posX = (Field::getCell(0, shapeTwoD[i][j] - 1).getPosX()); // -1 убираем проблемы индексов(0 - 1; 1 - 1)
+                int posX = (Field::getCell(0, shapeTwoD[i][j] - 1).getPosX());
                 int posY = (Field::getCell(k, 0).getPosY()); 
 
                 shape.setPosition(posX, posY);
@@ -39,4 +39,24 @@ std::vector<sf::RectangleShape> Forms::createShape(const std::vector<std::vector
         k++;
     }
     return shapes;
+}
+
+
+sf::RectangleShape Forms::border()
+{
+    sf::RectangleShape border(sf::Vector2f(
+        Config::GRID_TOTAL_WIDTH + 10,
+        Config::GRID_TOTAL_HEIGHT + 10
+    ));
+
+    border.setPosition(
+        Config::GRID_START_X - 5,
+        Config::GRID_START_Y - 5
+    );
+
+    border.setFillColor(sf::Color::Transparent);
+    border.setOutlineThickness(3);
+    border.setOutlineColor(sf::Color::White);
+
+    return border;
 }

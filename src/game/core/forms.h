@@ -17,4 +17,6 @@ public:
 	//static sf::RectangleShape Ibuild();
 
 	static std::vector<sf::RectangleShape> createShape(const std::vector<std::vector<int>>& shapeTwoD);
+
+	static sf::RectangleShape border();
 };
