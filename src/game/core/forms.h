@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "gameData.h"
+#include <vector>
 #pragma once
 
 //здесь делаем отдельную функцию для каждой фигуры
@@ -12,9 +12,9 @@
 class Forms
 {
 private:
-	static size_t sizeX; // размер поля по длине
+	Forms() = delete;
 public:
-	static void setSizeX(size_t size) { sizeX = size; }
+	//static sf::RectangleShape Ibuild();
 
-	static sf::RectangleShape Ibuild(); // палка 4 блока добавить параметры для куба
+	static std::vector<sf::RectangleShape> createShape(const std::vector<std::vector<int>>& shapeTwoD);
 };

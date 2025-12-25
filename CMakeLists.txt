@@ -6,21 +6,26 @@ set(CMAKE_CXX_STANDARD 17)
 set(SFML_DIR "C:/Users/bogda/OneDrive/Desktop/Tetris/libs/SFML/lib/cmake/SFML")
 find_package(SFML 2.5.1 COMPONENTS graphics window system REQUIRED)
 
+
 set(SOURCES
     src/main.cpp
-    src/game/fieldData.cpp
-    src/game/forms.cpp
+    "src/game/core/forms.cpp"
     src/game/game.cpp
-    src/game/positionData.cpp
+    "src/game/core/cell.cpp"
+    "src/game/core/field.cpp"
 )
 
 set(HEADERS
-    src/game/forms.h
+    "src/game/core/forms.h"
     src/game/game.h
-    src/game/gameData.h
+    src/logger/log.h
+    src/logger/logger.h
+    "src/game/core/config.h"
+    "src/game/core/cell.h"
+    "src/game/core/field.h"
 )
 
-add_executable(Tetris ${SOURCES} ${HEADERS})
+add_executable(Tetris ${SOURCES} ${HEADERS} )
 
 target_link_libraries(Tetris sfml-graphics sfml-window sfml-system)
 

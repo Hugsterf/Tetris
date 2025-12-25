@@ -1,12 +1,12 @@
 #include "game.h"
-#include "gameData.h"
-#include "forms.h"
+#include "core/forms.h"
+#include "../logger/log.h"
+#include "core/config.h"
+#include "core/field.h"
 
-Game::Game() : window(sf::VideoMode(1000, 1000), "Tetris")
+Game::Game() : window(sf::VideoMode(Config::WINDOW_WIDTH, Config::WINDOW_HEIGHT), "Tetris")
 {
     window.setFramerateLimit(60);
-    
-    Forms::setSizeX(positionData::getSizeX());
 }
 
 void Game::run()
@@ -25,31 +25,39 @@ void Game::processEvents()
     while (window.pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
+        {
             window.close();
+            LOG_ERROR("Окно закрыто!");
+        }
+            
     }
 }
 
 void Game::update()
 {
-    addShape(Forms::Ibuild());
+    /*size_t sizeY = positionData::getSizeY();
+    size_t sizeX = positionData::getSizeX();*/
 
-    size_t sizeY = positionData::getSizeY();
-    size_t sizeX = positionData::getSizeX();
-
-    for (size_t row = 0; row < sizeY; row++)
+    for (size_t row = 0; row < Config::GRID_HEIGHT; row++)
     {
-        int h = 25;
-
-        for (size_t col = 0; col < sizeX; col++)
+        for (size_t col = 0; col < Config::GRID_WIDTH; col++)
         {
-            sf::RectangleShape shape(sf::Vector2f(25, h));
-            int posX = positionData::getXPos(row, col);
-            int posY = positionData::getYPos(row, col);
+            sf::RectangleShape shape(sf::Vector2f(Config::CELL_SIZE, Config::CELL_SIZE));
+            int posX = (Field::getCell(row, col).getPosX());
+            int posY = (Field::getCell(row, col).getPosY());
 
-            shape.setPosition(posX + 2, posY + 2);
+            shape.setPosition(posX, posY);
             addShape(shape);
         }
     }
+
+    //const std::vector<std::vector<int>> I = {
+    //    {0, 0, 0, 0},
+    //    {0, 0, 0, 0},
+    //    {0, 0, 0, 0},
+    //    {0, 0, 0, 0}
+    //};
+    //addShape(Forms::createShape(I));
 }
 
 void Game::render()
@@ -66,5 +74,19 @@ void Game::render()
 
 void Game::addShape(const sf::RectangleShape& shape)
 {
+    /*LOG_TRACE("Добавление фигуры на позиции: X - " +
+        std::to_string(shape.getPosition().x) +
+        ", Y - " + std::to_string(shape.getPosition().y));*/
     shapes.push_back(shape);
+}
+
+void Game::addShape(const std::vector <sf::RectangleShape>& shapes)
+{
+    for (const auto& shape : shapes)
+    {
+        LOG_TRACE("Добавление фигуры на позиции: X - " +
+            std::to_string(shape.getPosition().x) +
+            ", Y - " + std::to_string(shape.getPosition().y));
+        addShape(shape);
+    }
 }
