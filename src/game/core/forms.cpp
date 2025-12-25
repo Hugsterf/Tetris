@@ -3,6 +3,8 @@
 #include "field.h"
 #include <vector>
 
+std::vector<Forms::Cell> Forms::cellsActivities;
+
 //sf::RectangleShape Forms::Ibuild()
 //{
 //    sf::RectangleShape shape(sf::Vector2f(Config::CELL_SIZE, Config::CELL_SIZE));
@@ -16,7 +18,7 @@
 //    return shape;
 //}
 
-std::vector<sf::RectangleShape> Forms::createShape(const std::vector<std::vector<int>>& shapeTwoD)
+std::vector<sf::RectangleShape> Forms::createShape(const std::vector<std::vector<int>>& shapeTwoD, bool activ)
 {
     std::vector <sf::RectangleShape> shapes;
     int k = 0;
@@ -30,6 +32,8 @@ std::vector<sf::RectangleShape> Forms::createShape(const std::vector<std::vector
                 int posX = (Field::getCell(0, shapeTwoD[i][j] - 1).getPosX());
                 int posY = (Field::getCell(k, 0).getPosY()); 
 
+                Field::changeActiv(k, (shapeTwoD[i][j] - 1));
+                addActiv(k, shapeTwoD[i][j] - 1);
                 shape.setPosition(posX, posY);
                 shape.setFillColor(sf::Color::Red);
 
@@ -59,4 +63,16 @@ sf::RectangleShape Forms::border()
     border.setOutlineColor(sf::Color::White);
 
     return border;
+}
+
+void Forms::showActivCells()
+{
+    for (const auto& cell : cellsActivities)
+    {
+        std::cout << "(" << cell.posXActiv << ", " << cell.posYActiv << "); ";
+    }
+}
+
+std::vector<Forms::Cell>& Forms::getCellsActivities() {
+    return cellsActivities;
 }

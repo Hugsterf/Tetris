@@ -13,7 +13,7 @@ void Field::initialize()
         {
             int posX = (Config::WINDOW_WIDTH / 3) + x * (Config::CELL_SIZE + Config::CELL_SPACING);
             int posY = (Config::WINDOW_HEIGHT / 4) + y * (Config::CELL_SIZE + Config::CELL_SPACING);
-            cells[y][x] = Cell(x, y, posX, posY, false);
+            cells[y][x] = Cell(x, y, posX, posY, false, false);
         }
     }
 }
@@ -30,7 +30,34 @@ void Field::show()
     }
 }
 
-Cell Field::getCell(int x, int j) 
+void Field::showActiv()
 {
-    return cells[x][j];
+    for (size_t i = 0; i < Config::GRID_HEIGHT; i++)
+    {
+        for (size_t j = 0; j < Config::GRID_WIDTH; j++)
+        {
+            cells[i][j].showActiv();
+        }
+        std::cout << std::endl;
+    }
+}
+
+Cell Field::getCell(int x, int y) 
+{
+    return cells[x][y];
+}
+
+void Field::changeActiv(int x, int y)
+{
+    cells[x][y].changeActiv();
+}
+
+void Field::setActiv(int x, int y, bool activ_)
+{
+    cells[x][y].setActiv(activ_);
+}
+
+bool Field::getActiv(int x, int y)
+{
+    return(cells[x][y].getActiv());
 }

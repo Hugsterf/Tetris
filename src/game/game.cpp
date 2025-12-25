@@ -3,10 +3,38 @@
 #include "../logger/log.h"
 #include "core/config.h"
 #include "core/field.h"
+#include "core/gameLogic.h"
+
+static int i = 0;
 
 Game::Game() : window(sf::VideoMode(Config::WINDOW_WIDTH, Config::WINDOW_HEIGHT), "Tetris")
 {
     window.setFramerateLimit(60);
+
+    for (size_t row = 0; row < Config::GRID_HEIGHT; row++)
+    {
+        for (size_t col = 0; col < Config::GRID_WIDTH; col++)
+        {
+            sf::RectangleShape shape(sf::Vector2f(Config::CELL_SIZE, Config::CELL_SIZE));
+            int posX = (Field::getCell(row, col).getPosX());
+            int posY = (Field::getCell(row, col).getPosY());
+
+            shape.setPosition(posX, posY);
+            addShape(shape);
+        }
+    }
+
+    const std::vector<std::vector<int>> I = {
+        {5, 6, 7, 0},
+        {0, 6, 0, 0},
+        {0, 6, 0, 0},
+        {0, 6, 0, 0}
+    };
+    addShape(Forms::createShape(I, true));
+
+    addShape(Forms::border());
+
+    Forms::showActivCells();
 }
 
 void Game::run()
@@ -28,35 +56,18 @@ void Game::processEvents()
         {
             window.close();
             LOG_ERROR("Окно закрыто!");
-        }
-            
+        } 
     }
 }
 
 void Game::update()
 {
-    for (size_t row = 0; row < Config::GRID_HEIGHT; row++)
+    i++;
+    if (i >= 60)
     {
-        for (size_t col = 0; col < Config::GRID_WIDTH; col++)
-        {
-            sf::RectangleShape shape(sf::Vector2f(Config::CELL_SIZE, Config::CELL_SIZE));
-            int posX = (Field::getCell(row, col).getPosX());
-            int posY = (Field::getCell(row, col).getPosY());
-
-            shape.setPosition(posX, posY);
-            addShape(shape);
-        }
+        GameLogic::fallingLogic();
+        i = 0;
     }
-
-    const std::vector<std::vector<int>> I = {
-        {0, 6, 0, 0},
-        {0, 6, 0, 0},
-        {0, 6, 0, 0},
-        {0, 6, 0, 0}
-    };
-    addShape(Forms::createShape(I));
-
-    addShape(Forms::border());
 }
 
 void Game::render()
@@ -73,9 +84,9 @@ void Game::render()
 
 void Game::addShape(const sf::RectangleShape& shape)
 {
-    /*LOG_TRACE("Добавление фигуры на позиции: X - " +
+    LOG_TRACE("Добавление фигуры на позиции: X - " +
         std::to_string(shape.getPosition().x) +
-        ", Y - " + std::to_string(shape.getPosition().y));*/
+        ", Y - " + std::to_string(shape.getPosition().y));
     shapes.push_back(shape);
 }
 
@@ -83,9 +94,9 @@ void Game::addShape(const std::vector <sf::RectangleShape>& shapes)
 {
     for (const auto& shape : shapes)
     {
-        /*LOG_TRACE("Добавление фигуры на позиции: X - " +
+        LOG_TRACE("Добавление фигуры на позиции: X - " +
             std::to_string(shape.getPosition().x) +
-            ", Y - " + std::to_string(shape.getPosition().y));*/
+            ", Y - " + std::to_string(shape.getPosition().y));
         addShape(shape);
     }
 }

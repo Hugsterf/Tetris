@@ -2,21 +2,36 @@
 #include <vector>
 #pragma once
 
-//здесь делаем отдельную функцию для каждой фигуры
-//получаем размер Y поля для получения середины поля и размещения там фигры
-//(если поле не делится без остатка - смещаем фигуру в правую сторону)
-//каждая функция будет возвращать const sf::RectangleShape& shape чтобы в game.cpp сразу добавлять 
-//через addShapes() (будет принимать массив)
-//из positionData получаем позицию там где должна быть фигура
-
 class Forms
 {
-private:
-	Forms() = delete;
 public:
-	//static sf::RectangleShape Ibuild();
+	struct Cell
+	{
+		int posXActiv;
+		int posYActiv;
 
-	static std::vector<sf::RectangleShape> createShape(const std::vector<std::vector<int>>& shapeTwoD);
+		Cell(int x, int y) : posXActiv(x), posYActiv(y) {}
+
+		void setXpos(int x) { posXActiv = x; }
+		void setYpos(int y) { posYActiv = y; }
+	};
+
+private:
+	static std::vector <Cell> cellsActivities;
+
+	Forms() = delete;
+
+public:
+	static void addActiv(int x, int y)
+	{
+		cellsActivities.push_back(Cell(y, x));
+	}
+
+	static std::vector<sf::RectangleShape> createShape(const std::vector<std::vector<int>>& shapeTwoD, bool activ);
 
 	static sf::RectangleShape border();
+
+	static void showActivCells();
+
+	static std::vector<Cell>& getCellsActivities();
 };
