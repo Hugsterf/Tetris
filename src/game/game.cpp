@@ -84,9 +84,9 @@ void Game::addShape(const std::vector <sf::RectangleShape>& shapes)
 {
     for (const auto& shape : shapes)
     {
-        LOG_TRACE("Добавление фигуры на позиции: X - " +
+        /*LOG_TRACE("Добавление фигуры на позиции: X - " +
             std::to_string(shape.getPosition().x) +
-            ", Y - " + std::to_string(shape.getPosition().y));
+            ", Y - " + std::to_string(shape.getPosition().y));*/
         addShape(shape);
     }
 }
