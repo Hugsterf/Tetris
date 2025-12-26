@@ -3,7 +3,11 @@
 class Render
 {
 public:
-	static void renderShapes(); 
+	static void renderAll();
+
+	static void renderField();
+
+	static void renderBorder();
 
 	static void exitProgram();
 

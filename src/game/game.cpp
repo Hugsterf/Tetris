@@ -18,8 +18,6 @@ Game::Game()
         {0, 6, 0, 0}
     };
     Forms::createShape(I, true);
-
-    /*addShape(Forms::border());*/
 }
 
 void Game::run()
@@ -28,25 +26,6 @@ void Game::run()
     {
         Render::exitProgram();  
         Render::update();      
-        Render::renderShapes(); 
-    }
-}
-
-void Game::addShape(const sf::RectangleShape& shape)
-{
-    LOG_TRACE("Добавление фигуры на позиции: X - " +
-        std::to_string(shape.getPosition().x) +
-        ", Y - " + std::to_string(shape.getPosition().y));
-    shapes.push_back(shape);
-}
-
-void Game::addShape(const std::vector <sf::RectangleShape>& shapes)
-{
-    for (const auto& shape : shapes)
-    {
-        LOG_TRACE("Добавление фигуры на позиции: X - " +
-            std::to_string(shape.getPosition().x) +
-            ", Y - " + std::to_string(shape.getPosition().y));
-        addShape(shape);
+        Render::renderAll(); 
     }
 }

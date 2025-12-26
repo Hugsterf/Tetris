@@ -3,11 +3,10 @@
 #include "config.h"
 #include "window.h"
 #include "../../logger/log.h"
+#include "forms.h"
 
-void Render::renderShapes()
+void Render::renderField()
 {
-	Window::clear();
-
 	for (size_t i = 0; i < Config::GRID_HEIGHT; i++)
 	{
 		for (size_t j = 0; j < Config::GRID_WIDTH; j++)
@@ -23,8 +22,6 @@ void Render::renderShapes()
 			window.draw(shape);
 		}
 	}
-
-	Window::display();
 }
 
 void Render::exitProgram()
@@ -41,3 +38,32 @@ void Render::exitProgram()
 }
 
 void Render::update() {}
+
+void Render::renderBorder()
+{
+	sf::RectangleShape shape(sf::Vector2f(
+		Config::GRID_TOTAL_WIDTH + 10,
+		Config::GRID_TOTAL_HEIGHT + 10
+	));
+
+	shape.setPosition(
+		Config::GRID_START_X - 5,
+		Config::GRID_START_Y - 5
+	);
+
+	shape.setFillColor(sf::Color::Transparent);
+	shape.setOutlineThickness(3);
+	shape.setOutlineColor(sf::Color::White);
+
+	Window::getWindow().draw(shape);
+}
+
+void Render::renderAll()
+{	
+	Window::clear();
+
+	Render::renderBorder();
+	Render::renderField();
+
+	Window::display();
+}
