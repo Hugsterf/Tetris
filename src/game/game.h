@@ -13,9 +13,4 @@ public:
     void run();
     void addShape(const sf::RectangleShape& shape);
     void addShape(const std::vector <sf::RectangleShape>& shapes);
-
-private:
-    void processEvents();
-    void update();
-    void render();
 };

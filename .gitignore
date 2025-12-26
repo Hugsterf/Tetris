@@ -1,6 +1,5 @@
 .vs/
 build/
-bin/
 *.exe
 *.dll
 *.user

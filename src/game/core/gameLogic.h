@@ -2,8 +2,8 @@
 
 class GameLogic
 {
+public:
+	static void fallLogic();
 private:
 
-public:
-	static void fallingLogic();
 };

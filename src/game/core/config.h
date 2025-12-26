@@ -1,7 +1,10 @@
 #pragma once
+#include <string>
 
 namespace Config 
 {
+    constexpr const char* TITLE = "Tetriis";
+
     constexpr int WINDOW_WIDTH = 1000;
     constexpr int WINDOW_HEIGHT = 1000;
 

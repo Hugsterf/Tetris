@@ -15,7 +15,7 @@ public:
     static void show();
     static void showActiv();
 
-    static Cell getCell(int x, int y);
+    static Cell& getCell(int x, int y);
     static bool getActiv(int x, int y);
 
     static void changeActiv(int x, int y);

@@ -42,7 +42,7 @@ void Field::showActiv()
     }
 }
 
-Cell Field::getCell(int x, int y) 
+Cell& Field::getCell(int x, int y) 
 {
     return cells[x][y];
 }

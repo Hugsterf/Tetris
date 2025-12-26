@@ -1,11 +1,16 @@
 #include "gameLogic.h"
-#include "forms.h"
+#include "field.h"
 
-void GameLogic::fallingLogic()
+void GameLogic::fallLogic()
 {
-	auto& cells = Forms::getCellsActivities();  
-	for (auto& cell : cells) 
+	for (size_t i = 0; i < Config::GRID_HEIGHT; i++)
 	{
-		cell.setYpos(cell.posYActiv + 1);  
+		for (size_t j = 0; j < Config::GRID_WIDTH; j++)
+		{
+			if (Field::getCell(i, j).getActiv() == true)
+			{
+				// доделать
+			}
+		}
 	}
 }
