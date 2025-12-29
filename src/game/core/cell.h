@@ -32,8 +32,10 @@ public:
     bool isBusy() const { return busy; }
     bool isActiv() const { return activ; }
 
-    void setX(size_t x) { posX = x; }
-    void setY(size_t y) { posY = y; }
+    void setPosX(size_t x) { posX = x; }
+    void setPosY(size_t y) { posY = y; }
+    void setIndexX(int indexX_) { indexX = indexX_; }
+    void setIndexY(int indexY_) { indexY = indexY_; }
     void setPosition(size_t x, size_t y) { posX = x; posY = y; }
     void setBusy(bool busy_) { busy = busy_; }
     void setActiv(bool activ_) { activ = activ_; }

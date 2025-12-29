@@ -13,7 +13,10 @@ set(SOURCES
     "src/game/game.cpp"
     "src/game/core/cell.cpp"
     "src/game/core/field.cpp"
- "src/game/core/gameLogic.cpp" "src/game/core/render.cpp" "src/game/core/window.cpp")
+ "src/game/core/gameLogic.cpp"
+ "src/game/core/render.cpp"
+ "src/game/core/window.cpp"
+"src/game/core/random.cpp")
 
 set(HEADERS
     "src/game/core/forms.h"
@@ -24,7 +27,10 @@ set(HEADERS
     "src/game/core/cell.h"
     "src/game/core/field.h"
  "src/game/core/gameLogic.h"
- "src/game/core/render.h" "src/game/core/window.h")
+ "src/game/core/render.h" 
+ "src/game/core/window.h" 
+ "src/game/core/shapes.h"
+ "src/game/core/random.h")
 
 add_executable(Tetris ${SOURCES} ${HEADERS} "src/game/core/window.h")
 

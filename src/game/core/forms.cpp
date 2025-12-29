@@ -3,39 +3,24 @@
 #include "field.h"
 #include <vector>
 
-void Forms::createShape(const std::vector<std::vector<int>>& shapeTwoD, bool activ)
+template<size_t row, size_t col>
+void Forms::createShape(const int(&shape)[row][col], sf::Color color)
 {
-    std::vector <sf::RectangleShape> shapes;
     int k = 0;
-    for (size_t i = 0; i < shapeTwoD.size(); i++)
+    for (size_t i = 0; i < row; i++)
     {
-        for (size_t j = 0; j < shapeTwoD[i].size(); j++)
+        for (size_t j = 0; j < col; j++)
         {
-            if (shapeTwoD[i][j] != 0)
+            if (shape[i][j] != 0)
             {
-                Field::changeActiv(k, (shapeTwoD[i][j] - 1));
-                (Field::getCell(k, shapeTwoD[i][j] - 1)).setColor(sf::Color::Red);
+                Field::changeActiv(k, (shape[i][j] - 1));
+                (Field::getCell(k, shape[i][j] - 1)).setColor(color);
             }
         }
         k++;
     }
 }
 
-sf::RectangleShape Forms::border()
-{
-    sf::RectangleShape shape(sf::Vector2f(
-        Config::GRID_TOTAL_WIDTH + 10,
-        Config::GRID_TOTAL_HEIGHT + 10
-    ));
-
-    shape.setPosition(
-        Config::GRID_START_X - 5,
-        Config::GRID_START_Y - 5
-    );
-
-    shape.setFillColor(sf::Color::Transparent);
-    shape.setOutlineThickness(3);
-    shape.setOutlineColor(sf::Color::White);
-
-    return shape;
-}
+template void Forms::createShape<4, 4>(const int(&)[4][4], sf::Color);
+template void Forms::createShape<3, 3>(const int(&)[3][3], sf::Color);
+template void Forms::createShape<2, 2>(const int(&)[2][2], sf::Color);

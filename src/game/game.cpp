@@ -7,25 +7,25 @@
 #include "core/render.h"
 #include "core/window.h"
 
-static int i = 0;
-
 Game::Game()
 {
-    const std::vector<std::vector<int>> I = {
-        {5, 6, 7, 0},
-        {0, 6, 0, 0},
-        {0, 6, 0, 0},
-        {0, 6, 0, 0}
-    };
-    Forms::createShape(I, true);
+    CREATE_SHAPE(O);
 }
 
 void Game::run()
-{
+{   
     while (Window::isOpen())
     {
-        Render::exitProgram();  
+        Render::pollEvent();
         Render::update();      
-        Render::renderAll(); 
+        Render::renderAll();
+        static int i = 0;
+        if (i++ >= 10)
+        {
+            GameLogic::start();
+            i = 0;
+        }
+        i++;
+        
     }
 }

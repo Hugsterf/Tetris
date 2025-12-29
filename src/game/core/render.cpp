@@ -4,6 +4,7 @@
 #include "window.h"
 #include "../../logger/log.h"
 #include "forms.h"
+#include "gameLogic.h"
 
 void Render::renderField()
 {
@@ -24,7 +25,7 @@ void Render::renderField()
 	}
 }
 
-void Render::exitProgram()
+void Render::pollEvent()
 {
 	sf::Event event;
 	while (Window::pollEvent(event))
@@ -33,6 +34,18 @@ void Render::exitProgram()
 		{
 			Window::close();
 			LOG_ERROR("Окно закрыто!");
+		}
+		if (event.type == sf::Event::KeyPressed)
+		{
+			switch (event.key.code)
+			{
+			case sf::Keyboard::D:
+				GameLogic::moveRight();
+				break;
+			case sf::Keyboard::A:
+				GameLogic::moveLeft();
+				break;
+			}
 		}
 	}
 }

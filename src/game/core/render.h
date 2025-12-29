@@ -9,7 +9,7 @@ public:
 
 	static void renderBorder();
 
-	static void exitProgram();
+	static void pollEvent();
 
 	static void update();
 };
