@@ -5,6 +5,8 @@
 #include "forms.h"
 #include "gameLogic.h"
 
+int Render::count = 0;
+
 void Render::renderField()
 {
 	for (size_t i = 0; i < Config::GRID_HEIGHT; i++)
@@ -67,6 +69,28 @@ void Render::renderBorder()
 	Window::getWindow().draw(shape);
 }
 
+void Render::renderCount()
+{
+	static sf::Font font;
+	static bool fontL;
+	if (!fontL)
+	{
+		if (font.loadFromFile("C:/Users/MKA/source/repos/Tetris/src/game/core/arial.ttf"));
+	}
+	sf::Text text;
+	text.setFont(font);
+	text.setString(std::to_string(count));
+	text.setCharacterSize(25);
+	text.setPosition(800, 500);
+
+	sf::RenderWindow& window = Window::getWindow();
+	window.draw(text);
+}
+
+void Render::setCount(int count_) { count = count_; }
+
+void Render::addCount(int count_) { count += count_; }
+
 void Render::update()
 {	
 	Window::clear();
@@ -74,6 +98,8 @@ void Render::update()
 	Render::renderBorder();
 
 	Render::renderField();
+
+	Render::renderCount();
 
 	Window::display();
 }

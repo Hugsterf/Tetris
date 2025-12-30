@@ -1,6 +1,7 @@
 ﻿#include "gameLogic.h"
 #include "field.h"
 #include "random.h"
+#include "render.h"
 
 bool GameLogic::testMove(int y, int x)
 {
@@ -14,12 +15,12 @@ bool GameLogic::testMove(int y, int x)
                 int newRow = i + y;
                 int newCol = j + x;
                 if (newRow < 0 || newRow >= Config::GRID_HEIGHT ||
-                    newCol < 0 || newCol >= Config::GRID_WIDTH) // проверка границ
+                    newCol < 0 || newCol >= Config::GRID_WIDTH) 
                 {
                     return false;
                 }
                 auto& targetCell = Field::getCell(newRow, newCol);
-                if (targetCell.isBusy() && !targetCell.getActiv()) // проверка клетки передвижения
+                if (targetCell.isBusy() && !targetCell.getActiv())
                 {
                     return false;
                 }
@@ -174,15 +175,52 @@ int GameLogic::clearFullLines()
     return linesCleared;
 }
 
+void GameLogic::resetGame()
+{
+    for (int i = 0; i < Config::GRID_HEIGHT; i++)
+    {
+        for (int j = 0; j < Config::GRID_WIDTH; j++)
+        {
+            auto& cell = Field::getCell(i, j);
+            
+            cell.setActiv(false);
+            cell.setBusy(false);
+            cell.setColor(sf::Color::White);
+        }
+    }
+}
+
 void GameLogic::start()
 {
     if (!GameLogic::fallLogic())
     {
         int cleared = GameLogic::clearFullLines();
 
-        if (cleared > 0) 
+        switch (cleared)
         {
-            // система очков
+        case 1:
+            Render::addCount(40);
+            break;
+        case 2:
+            Render::addCount(100);
+            break;
+        case 3:
+            Render::addCount(300);
+            break;
+        case 4:
+            Render::addCount(1200);
+            break;
+        default:
+            break;
+        }
+
+        for (int i = 0; i < Config::GRID_WIDTH; i++)
+        {
+            auto& cell = Field::getCell(0, i);
+            if (cell.isBusy())
+            {
+                GameLogic::resetGame();
+            }
         }
 
         Rand::createRandomShape();

@@ -13,6 +13,8 @@ public:
 
 	static int clearFullLines();
 
+	static void resetGame();
+
 private:
 	
 	static bool testMove(int y, int x);

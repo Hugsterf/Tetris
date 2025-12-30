@@ -10,4 +10,13 @@ public:
 	static void pollEvent();
 
 	static void update();
+
+	static void renderCount();
+
+	static void setCount(int count_);
+
+	static void addCount(int count_);
+
+private:
+	static int count;
 };
