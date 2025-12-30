@@ -2,7 +2,6 @@
 #include "field.h"
 #include "config.h"
 #include "window.h"
-#include "../../logger/log.h"
 #include "forms.h"
 #include "gameLogic.h"
 
@@ -33,7 +32,6 @@ void Render::pollEvent()
 		if (event.type == sf::Event::Closed)
 		{
 			Window::close();
-			LOG_ERROR("Окно закрыто!");
 		}
 		if (event.type == sf::Event::KeyPressed)
 		{
@@ -49,8 +47,6 @@ void Render::pollEvent()
 		}
 	}
 }
-
-void Render::update() {}
 
 void Render::renderBorder()
 {
@@ -71,11 +67,12 @@ void Render::renderBorder()
 	Window::getWindow().draw(shape);
 }
 
-void Render::renderAll()
+void Render::update()
 {	
 	Window::clear();
 
 	Render::renderBorder();
+
 	Render::renderField();
 
 	Window::display();

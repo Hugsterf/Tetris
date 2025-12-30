@@ -6,21 +6,20 @@
 
 std::vector<char> Rand::bag{ 'I', 'J', 'L', 'O', 'S', 'T', 'Z' };
 
-void Rand::initializ()
-{
-    std::srand(time(NULL));
+bool Rand::initialized = false;
+
+void Rand::initialize() {
+    if (!initialized) {
+        std::srand(static_cast<unsigned int>(time(NULL)));
+        resetBag();
+        initialized = true;
+    }
 }
 
-void Rand::resetBag() 
-{
+void Rand::resetBag() {
     bag.clear();
-    bag.push_back('I');
-    bag.push_back('J');
-    bag.push_back('L');
-    bag.push_back('O');
-    bag.push_back('S');
-    bag.push_back('T');
-    bag.push_back('Z');
+    bag = { 'I', 'J', 'L', 'O', 'S', 'T', 'Z' }; 
+    mix(); 
 }
 
 void Rand::mix() 

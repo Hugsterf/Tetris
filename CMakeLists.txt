@@ -8,7 +8,7 @@ find_package(SFML 2.5.1 COMPONENTS graphics window system REQUIRED)
 
 
 set(SOURCES
-    src/main.cpp
+    "src/main.cpp"
     "src/game/core/forms.cpp"
     "src/game/game.cpp"
     "src/game/core/cell.cpp"
@@ -20,9 +20,7 @@ set(SOURCES
 
 set(HEADERS
     "src/game/core/forms.h"
-    src/game/game.h
-    src/logger/log.h
-    src/logger/logger.h
+    "src/game/game.h"
     "src/game/core/config.h"
     "src/game/core/cell.h"
     "src/game/core/field.h"
@@ -32,7 +30,7 @@ set(HEADERS
  "src/game/core/shapes.h"
  "src/game/core/random.h")
 
-add_executable(Tetris ${SOURCES} ${HEADERS} "src/game/core/window.h")
+add_executable(Tetris ${SOURCES} ${HEADERS})
 
 target_link_libraries(Tetris sfml-graphics sfml-window sfml-system)
 

@@ -1,14 +1,16 @@
 #pragma once
 #include <vector>
 
-class Rand {
-private:
-    static std::vector<char> bag;
-
+class Rand 
+{
 public:
-    static void initializ();
-    static void mix();
+    static void initialize();
     static void resetBag();
+    static void mix();
     static char getNext();
     static void createRandomShape();
+
+private:
+    static std::vector<char> bag;
+    static bool initialized; 
 };

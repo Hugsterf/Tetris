@@ -117,10 +117,74 @@ void GameLogic::moveLeft()
     }
 }
 
+int GameLogic::clearFullLines()
+{
+    int linesCleared = 0;
+    std::vector<int> fullRows;
+
+    for (int row = 0; row < Config::GRID_HEIGHT; row++)
+    {
+        bool full = true;
+        for (int col = 0; col < Config::GRID_WIDTH; col++)
+        {
+            if (!Field::getCell(row, col).isBusy())
+            {
+                full = false;
+                break;
+            }
+        }
+        if (full) fullRows.push_back(row);
+    }
+
+    if (fullRows.empty()) return 0;
+
+    linesCleared = fullRows.size();  
+
+    std::sort(fullRows.begin(), fullRows.end());
+
+    for (int i = fullRows.size() - 1; i >= 0; i--)
+    {
+        int rowToRemove = fullRows[i];
+
+        for (int row = rowToRemove; row > 0; row--)
+        {
+            for (int col = 0; col < Config::GRID_WIDTH; col++)
+            {
+                auto& source = Field::getCell(row - 1, col);
+                auto& dest = Field::getCell(row, col);
+
+                dest.setBusy(source.isBusy());
+                dest.setColor(source.getColor());
+                dest.setActiv(false);
+
+                source.setBusy(false);
+                source.setActiv(false);
+                source.setColor(sf::Color::White);
+            }
+        }
+
+        for (int col = 0; col < Config::GRID_WIDTH; col++)
+        {
+            Field::getCell(0, col).setBusy(false);
+            Field::getCell(0, col).setActiv(false);
+            Field::getCell(0, col).setColor(sf::Color::White);
+        }
+    }
+
+    return linesCleared;
+}
+
 void GameLogic::start()
 {
     if (!GameLogic::fallLogic())
     {
+        int cleared = GameLogic::clearFullLines();
+
+        if (cleared > 0) 
+        {
+            // система очков
+        }
+
         Rand::createRandomShape();
     }
 }

@@ -11,7 +11,9 @@ public:
 
 	static void moveLeft();
 
+	static int clearFullLines();
+
 private:
 	
-	static bool GameLogic::testMove(int y, int x);
+	static bool testMove(int y, int x);
 };
